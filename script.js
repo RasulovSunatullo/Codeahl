@@ -3,7 +3,7 @@ let tajcoin = 1;
 let bot = 0;
 let storage = 0;
 
-/* Ишга тушганда аввалги маълумотларни local storage-дан оламиз */
+
 window.onload = function() {
   if(localStorage.getItem("farmData")) {
     let savedData = JSON.parse(localStorage.getItem("farmData"));
@@ -30,7 +30,7 @@ function collect() {
     bot = 0;
     updateStorage();
     updateBots();
-    saveData(); // Маълумотни саклаш
+    saveData(); 
   } else {
     
   }
@@ -42,7 +42,7 @@ function sell() {
     storage -= 5000;
     updateMoney();
     updateStorage();
-    saveData(); // Маълумотни саклаш
+    saveData(); 
   } else {
     
   }
@@ -54,13 +54,13 @@ function buy() {
     money -= 10000;
     updateMoney();
     updateTajcoin();
-    saveData(); // Маълумотни саклаш
+    saveData(); 
   } else {
     
   }
 }
 
-/* LocalStorage'да маълумотларни сақлаш функцияси */
+
 function saveData() {
   let farmData = {
     money: money,
@@ -71,7 +71,7 @@ function saveData() {
   localStorage.setItem("farmData", JSON.stringify(farmData));
 }
 
-/* Янгиланган маълумотларни экранда кўрсатувчи функциялар */
+
 function updateMoney() {
   document.getElementById("moneyid").innerHTML = " " + money.toLocaleString();
 }
@@ -95,19 +95,19 @@ function updateDisplay() {
   updateStorage();
 }
 
-/* Ракамларни форматлаш учун toLocaleString() функцияси фойдаланилади */
 
-// Унсурҳои DOM-ро интихоб кунед
+
+
 const showModalBtn = document.querySelector(".show-modal");
 const bottomSheet = document.querySelector(".bottom-sheet");
 const sheetOverlay = bottomSheet.querySelector(".sheet-overlay");
 const sheetContent = bottomSheet.querySelector(".content");
 const dragIcon = bottomSheet.querySelector(".drag-icon");
 
-// Тағйирёбандаҳои глобалӣ барои пайгирии рӯйдодҳои кашолакунӣ
+
 let isDragging = false, startY, startHeight;
 
-// Варақи поёниро нишон диҳед, панели ҳаракати амудии баданро пинҳон кунед ва updateSheetHeight-ро даъват кунед
+
 const showBottomSheet = () => {
     bottomSheet.classList.add("show");
     document.body.style.overflowY = "hidden";
@@ -115,18 +115,18 @@ const showBottomSheet = () => {
 }
 
 const updateSheetHeight = (height) => {
-    sheetContent.style.height = `${height}vh`; //баландии мундариҷаи варақаро навсозӣ мекунад
-     // Агар баландӣ ба 100 баробар бошад, синфи пурраи экранро ба поёни Sheet иваз мекунад
+    sheetContent.style.height = `${height}vh`; 
+     
     bottomSheet.classList.toggle("fullscreen", height === 100);
 }
 
-// Варақи поёнро пинҳон кунед ва панели ҳаракати амудии баданро нишон диҳед
+
 const hideBottomSheet = () => {
     bottomSheet.classList.remove("show");
     document.body.style.overflowY = "auto";
 }
 
-// Мавқеи кашолакунӣ, баландии варақи мундариҷаро муқаррар мекунад ва синфи кашолакуниро ба варақи поён илова мекунад
+
 const dragStart = (e) => {
     isDragging = true;
     startY = e.pageY || e.touches?.[0].pageY;
@@ -134,7 +134,7 @@ const dragStart = (e) => {
     bottomSheet.classList.add("dragging");
 }
 
-// Баландии навро барои мундариҷаи варақ ҳисоб мекунад ва функсияи updateSheetHeight -ро даъват мекунад
+
 const dragging = (e) => {
     if(!isDragging) return;
     const delta = startY - (e.pageY || e.touches?.[0].pageY);
@@ -142,8 +142,7 @@ const dragging = (e) => {
     updateSheetHeight(newHeight);
 }
 
-// Муайян мекунад, ки оё пинҳон кардан, ба экрани пурра гузоштан ё ба пешфарз гузоштан 
- // баландӣ дар асоси баландии ҷории мундариҷаи варақ
+
 const dragStop = () => {
     isDragging = false;
     bottomSheet.classList.remove("dragging");
@@ -161,5 +160,35 @@ document.addEventListener("touchend", dragStop);
 
 sheetOverlay.addEventListener("click", hideBottomSheet);
 showModalBtn.addEventListener("click", showBottomSheet);
-/* профил */
+
+//loading function
+gsap.fromTo(
+  ".loading-page",
+  { opacity: 1 },
+  {
+    opacity: 0,
+    display: "none",
+    duration: 1.5,
+    delay: 5.5,
+  }
+);
+
+gsap.fromTo(
+  ".logo-name",
+  {
+    y: 50,
+    opacity: 0,
+  },
+  {
+    y: 0,
+    opacity: 1,
+    duration: 2,
+    delay: 0.5,
+  }
+);
+
+
+
+
+
 
