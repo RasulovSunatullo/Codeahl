@@ -16,7 +16,7 @@ window.onload = function() {
   }
 }
 
-setInterval(botadd, 2000);
+setInterval(botadd, 1000);
 
 function botadd() {
   bot += tajcoin;
