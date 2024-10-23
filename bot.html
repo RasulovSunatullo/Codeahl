@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <title>Document</title>
+</head>
+<body>
+  
+  <script>
+    const TelegramBot = require('node-telegram-bot-api');
+
+// Токени боти худро дар ин ҷо гузоред
+const token = '7236166703:AAEQyuhjKWmF147WahzDEdUs5jiZzkdw5nA';
+
+// Созтани бот
+const bot = new TelegramBot(token, { polling: true });
+
+// Вақте ки бот оғоз мешавад
+bot.onText(/\/start/, (msg) => {
+    const chatId = msg.chat.id;
+    bot.sendMessage(chatId, 'Салом! Лутфан, /check-ро барои санҷиши обуна кунед.');
+});
+
+// Функсия барои санҷидани обунашавӣ
+bot.onText(/\/check/, (msg) => {
+    const chatId = msg.chat.id;
+
+    // Санҷиши обуна (ин кодро мувофиқи канали худ танзим кунед)
+    bot.getChatMember('YOUR_CHANNEL', chatId).then((chatMember) => {
+        if (chatMember.status === 'member' || chatMember.status === 'administrator' || chatMember.status === 'creator') {
+            bot.sendMessage(chatId, 'Шумо обуна ҳастед! Барои харидани VIP, рақами картаро ворид кунед:');
+        } else {
+            bot.sendMessage(chatId, 'Лутфан, аввал ба канали мо обуна шавед!');
+        }
+    }).catch((error) => {
+        bot.sendMessage(chatId, 'Хатои санҷиш: ' + error.message);
+    });
+});
+
+// Вақте ки корбар рақами картаро ворид мекунад
+bot.on('message', (msg) => {
+    const chatId = msg.chat.id;
+    if (msg.text && msg.text.match(/^\d{16}$/)) { // Чек кардани рақам
+        bot.sendMessage(chatId, `Рақами карта: ${msg.text}\nМаблағ: 20с\nЛутфан, акси пардохтро равон кунед.`);
+    }
+});
+  </script>
+</body>
+</html>
